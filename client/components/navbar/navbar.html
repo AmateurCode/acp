@@ -1,0 +1,128 @@
+<div ng-controller="NavbarCtrl">
+  <div class="navbar navbar-fixed-top navbar-primary main">
+    <div class="navbar-header pull-left">
+      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand">
+          <div class="pull-left">
+              <a href="" class="toggle-button toggle-sidebar btn-navbar"><i class="fa fa-bars"></i></a>
+          </div>
+          <a href="index.html" class="appbrand innerL">ACP Admin</a>
+      </div>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+        <li class=" hidden-xs">
+            <form class="navbar-form navbar-left " role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type in here...">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-inverse"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </li>
+        <li class="dropdown">
+            <a href="" class="dropdown-toggle user dropdown-hover" data-toggle="dropdown"> <img src="../assets/images/people/35/8.jpg" alt="" class="img-circle"><span class="hidden-xs hidden-sm"> &nbsp; Adrian Demian </span> <span class="caret"></span></a>
+            <ul class="dropdown-menu list pull-right ">
+                <li><a href="#">Your Profile <i class="fa fa-user pull-right"></i></a></li>
+                <li><a href="#">Edit Account <i class="fa fa-pencil pull-right"></i></a></li>
+                <li><a href="#">Get Help <i class="fa fa-question-circle pull-right"></i></a></li>
+                <li><a href="#">Log out <i class="fa fa-sign-out pull-right"></i></a></li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+            <a ng-href="{{item.link}}">{{item.title}}</a>
+        </li>
+        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown notification">
+          <a href="#" class="dropdown-toggle menu-icon dropdown-hover" data-toggle="dropdown"><i class="fa fa-fw fa-envelope-o"></i><span class="badge badge-primary">2</span></a>
+          <ul class="dropdown-menu inbox">
+            <li class="headline">Inbox</li>
+            <li><input type="text" class="form-control border-none" placeholder="Search Email..."></li>
+            <li>
+              <div class="media">
+                  <a class="pull-left" href="#"><img src="../assets/images/people/50/8.jpg" alt="" class="img-circle media-object"></a>
+                  <div class="media-body">
+                      <a href="" class="strong text-primary"> <i class="fa fa-circle"></i> Adrian Demian</a> <span>(3)</span><span class="pull-right time-email">10:20 AM</span>
+                      <div class="clearfix"></div>
+                      Lorem ipsum dolor sit amet, consecte adipisicing elit.
+                  </div>
+              </div>    
+            </li>
+          </ul>
+        </li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a class="menu-icon" href="/settings"><i class="fa fa-cog"></i></a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a class="menu-icon" href="" ng-click="logout()"><i class="fa fa-sign-out"></i></a></li>
+      </ul>
+    </div>
+</div>
+<div id="menu" class="hidden-print hidden-xs">
+  <div class="sidebar sidebar-inverse">
+    <div class="user-profile media innerAll">
+      <a href="" class="pull-left"><img src="../assets/images/people/50/8.jpg" alt="" class="img-circle"><span class="badge badge-primary">2</span></a>
+      <div class="media-body">
+        <a href="" class="strong">{{ getCurrentUser().name }}</a>
+        <p class="text-success"><i class="fa fa-fw fa-circle"></i> Online</p>
+      </div>
+      <ul>
+        <li class="active"><a href=""><i class="fa fa-fw fa-user"></i></a></li>
+        <li><a href=""><i class="fa fa-fw fa-envelope"></i></a></li>
+        <li><a href=""><i class="fa fa-fw fa-lock"></i></a></li>
+      </ul>
+    </div>
+    <div class="sidebarMenuWrapper hasNiceScroll" tabindex="5000">
+      <ul class="list-unstyled">
+        <li><a href="index.html"><i class=" icon-projector-screen-line"></i><span>Dashboard</span></a></li>
+        <li class="hasSubmenu">
+          <a href="#" data-target="#menu-style" data-toggle="collapse"><i class="icon-compose"></i><span>Menu &amp; Navbar</span></a>
+          <ul class="collapse" id="menu-style">
+            <li><a href="index.html?lang=en&amp;  sidebar_style=inverse"><span class="pull-right badge badge-primary"><i class="fa fa-check"></i></span>Sidebar Menu Dark</a></li>
+            <li><a href="index.html?lang=en&amp;sidebar_style=default">Sidebar Menu Light</a></li>
+            <li><a href="index.html?lang=en&amp;top_style=inverse">Top Menu Dark</a></li>
+            <li><a href="index.html?lang=en&amp;top_style=default">Top Menu Light</a></li>
+            <li><a href="index.html?lang=en&amp;top_style=primary"><span class="pull-right badge badge-primary"><i class="fa fa-check"></i></span>Top Menu Primary</a></li>
+          </ul>
+        </li> 
+        
+        <li><a href="profile_resume.html?lang=en"><i class="icon-user-1"></i><span>Profile / Resume</span></a></li>
+        <li class="hasSubmenu">
+          <a href="#" data-target="#support" data-toggle="collapse"><i class="icon-compose"></i><span>Support</span></a>
+          <ul class="collapse " id="support">
+            <li><a href="support_tickets.html?lang=en"><i class="icon-ticket"></i><span>Support Tickets</span></a></li>
+            <li><a href="support_forum_overview.html?lang=en"><i class="icon-bulleted-list"></i><span>Forum Overview</span></a></li>
+            <li><a href="support_forum_post.html?lang=en"><i class=" icon-paper-document-image"></i><span>Forum Post</span></a></li>
+            <li><a href="support_questions.html?lang=en"><i class=" fa fa-question-circle"></i><span>Q&amp;A Listing</span></a></li>
+            <li><a href="support_answers.html?lang=en"><i class=" icon-paper-document-image"></i><span>Q&amp;A Page </span></a></li>
+            <li><a href="support_knowledge.html?lang=en"><i class="  icon-medical-symbol-fill"></i><span>Knowledge Base </span></a></li>
+          </ul>
+        </li>
+        
+        <li><a href="portfolio.html?lang=en"><i class=" icon-flip-camera-fill"></i><span>Filterable Gallery</span></a></li>
+        <li><a href="surveys_multiple.html?lang=en"><i class=" icon-comment-typing"></i><span>Survey</span></a></li>
+        <li><a href="events.html?lang=en"><i class="icon-time-clock"></i><span>Events</span></a></li>
+        <li><a href="contacts.html?lang=en"><i class="icon-group"></i><span>Contacts</span></a></li>
+        <li><a href="maps_google.html?lang=en"><i class="icon-map-location-fill-2"></i><span>Maps</span></a></li>
+        <li><a href="gallery.html?lang=en"><i class="icon-film-strip"></i><span>Media &amp; Carousels</span></a></li>
+      </ul>
+    </div>
+    <!-- <div id="ascrail2000" class="nicescroll-rails" style="width: 5px; z-index: 2; cursor: default; position: absolute; top: 83px; left: 268px; height: 470px; display: block; opacity: 0;">
+    <div style="position: relative; top: 103px; float: right; width: 5px; height: 367px; border: none; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; background-color: rgb(203, 64, 64); background-clip: padding-box;">
+    </div>
+    </div> -->
+    </div>
+</div>
+  
+</div>
